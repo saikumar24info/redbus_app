@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:redbus_app/common/custrom_button.dart';
 import 'package:redbus_app/screens/buses_screen.dart';
+import 'package:redbus_app/screens/search_screen1.dart';
+import 'package:redbus_app/screens/show_screen2.dart';
 
 class BusHomeScreen extends StatefulWidget {
   const BusHomeScreen({Key? key}) : super(key: key);
@@ -16,8 +18,8 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
   final _fromController = TextEditingController();
   final _toController = TextEditingController();
   var date;
-  String from = '';
-  String to = '';
+  late final String from;
+  late final String to;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,7 +32,7 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
         body: Stack(
           children: [
             Container(
-              color: Colors.redAccent,
+              color: Color(0xFFD32F2F),
               height: 350,
             ),
             SizedBox(
@@ -54,10 +56,14 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                       SizedBox(
                         width: 150,
                       ),
-                      CircleAvatar(
-                          backgroundColor: Colors.red,
-                          backgroundImage: NetworkImage(
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJZiGVwdXRcOMSinjoVPb1GehiOZdevGqK5gF-2igFSA0IJXQvz40mGNpaL5sWOkIbh5c&usqp=CAU')),
+                      SizedBox(
+                        height: 50,
+                        width: 50,
+                        child: CircleAvatar(
+                            backgroundColor: Color(0xFFD32F2F),
+                            backgroundImage: NetworkImage(
+                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJZiGVwdXRcOMSinjoVPb1GehiOZdevGqK5gF-2igFSA0IJXQvz40mGNpaL5sWOkIbh5c&usqp=CAU')),
+                      ),
                     ],
                   ),
                   Container(
@@ -72,8 +78,15 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                       child: Column(
                         children: [
                           TextFormField(
+                            autofocus: false,
+                            showCursor: false,
                             controller: _fromController,
-                            onChanged: (value) => from = value,
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SearchScreen2(),
+                                )),
+                            onChanged: (value) => this.from = value,
                             decoration: InputDecoration(
                               hintText: 'From',
                               prefixIcon: Icon(Icons.directions_bus),
@@ -83,6 +96,12 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                             height: 05,
                           ),
                           TextFormField(
+                            showCursor: false,
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SearchScreen2(),
+                                )),
                             controller: _toController,
                             onChanged: (value) => to = value,
                             decoration: InputDecoration(
@@ -246,8 +265,8 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                         children: [
                           Container(
                             color: Colors.red,
-                            height: 120,
-                            width: 200,
+                            height: 150,
+                            width: 250,
                             child: ListTile(
                               title: Container(
                                 height: 75,
@@ -255,11 +274,23 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                                 child: Image.network(
                                     'https://st.redbus.in/Images/INDOFFER/GOLDENTICKET/274x147.png'),
                               ),
-                              subtitle: Text('You can also win 1gm gold !*',
+                              subtitle: Text(
+                                '\nYou can also win 1gm gold !*\n',
+                                style: TextStyle(
+                                  color: Colors.yellow,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              trailing: ElevatedButton(
+                                child: Text(
+                                  'ViewDetails',
                                   style: TextStyle(
-                                    color: Colors.yellow,
-                                    fontSize: 14,
-                                  )),
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                onPressed: () {},
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -267,8 +298,8 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                           ),
                           Container(
                             color: Colors.green[50],
-                            height: 120,
-                            width: 200,
+                            height: 150,
+                            width: 250,
                             child: ListTile(
                               leading: CircleAvatar(
                                 backgroundColor: Colors.red,
@@ -276,10 +307,14 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                                     'https://media.istockphoto.com/vectors/medical-syringe-vaccine-isolated-icon-vector-id1281043587?k=20&m=1281043587&s=612x612&w=0&h=dxMht4BcKp9fXypnkvlOJZJLIVwsHvOTzBOjtxoPumU='),
                               ),
                               title: Text(
-                                'Share your vaccination status with redBus and get 50 in your redBus wallet\nshare now ',
+                                '\nShare your vaccination status with redBus and get 50 in your redBus wallet\nShareNow\t',
                                 style: TextStyle(
                                   fontSize: 14,
                                 ),
+                              ),
+                              subtitle: IconButton(
+                                icon: Icon(Icons.arrow_right_alt_rounded),
+                                onPressed: () {},
                               ),
                             ),
                           ),
@@ -288,8 +323,8 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                           ),
                           Container(
                             color: Colors.blue[50],
-                            height: 120,
-                            width: 200,
+                            height: 150,
+                            width: 250,
                             child: ListTile(
                               leading: Container(
                                 decoration: BoxDecoration(
@@ -302,7 +337,7 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                                 width: 50,
                               ),
                               title: Text(
-                                'COVID-19\nTravel Guidelines\nCheck the latest travel guidelines issued by state governments.',
+                                '\nCOVID-19\nTravel Guidelines\nCheck the latest travel guidelines issued by state governments.',
                                 style: TextStyle(
                                   fontSize: 14,
                                 ),
@@ -314,8 +349,8 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                           ),
                           Container(
                             color: Colors.white,
-                            height: 120,
-                            width: 200,
+                            height: 150,
+                            width: 250,
                             child: ListTile(
                               leading: Container(
                                 child: Image.network(
@@ -325,7 +360,7 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                               ),
                               subtitle: Column(children: [
                                 Text(
-                                  'redBus values the safety and well-being of our customers\n',
+                                  '\nredBus values the safety and well-being of our customers\n',
                                   style: TextStyle(
                                     fontSize: 14,
                                   ),
@@ -441,7 +476,7 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                                   child: Image.network(
                                       'https://previews.123rf.com/images/arcady31/arcady311606/arcady31160600002/59113161-special-offer-red-star-icon.jpg')),
                               title: Text(
-                                'Use promo code to reduce your price by 20 ₹ ',
+                                'Use promo code to reduce your price by 30 ₹ ',
                               ),
                               subtitle: Text(
                                 'PROMO CODE:Info123',
