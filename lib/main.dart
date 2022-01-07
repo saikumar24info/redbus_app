@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:redbus_app/screens/home_screen.dart';
+import 'package:redbus_app/screens/home_Screen/home_screen.dart';
 import 'package:redbus_app/services/auth_cubit.dart';
 import 'package:bloc/bloc.dart';
 
@@ -19,10 +19,8 @@ class MyApp extends StatelessWidget {
       title: 'red bus',
       theme: ThemeData(
         primarySwatch: Colors.red,
-       
       ),
       home:BusHomeScreen(),
-      
     );
   }
 }
