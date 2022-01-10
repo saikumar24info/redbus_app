@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:redbus_app/common/custrom_button.dart';
 import 'package:redbus_app/screens/help_screen.dart';
 import 'package:redbus_app/screens/home_Screen/buses_screen.dart';
+import 'package:redbus_app/screens/home_Screen/ryde_screen.dart';
 import 'package:redbus_app/screens/my_account.dart';
 
 import 'package:redbus_app/screens/my_bookings_screen.dart';
 import 'package:redbus_app/screens/home_Screen/search_screen1.dart';
 import 'package:redbus_app/screens/home_Screen/search_screen2.dart';
+import 'package:redbus_app/screens/rail_screen.dart';
 
 class BusHomeScreen extends StatefulWidget {
   const BusHomeScreen({Key? key}) : super(key: key);
@@ -32,7 +34,6 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
       debugShowCheckedModeBanner: false,
       title: 'BusScreen',
       theme: ThemeData(
-      
         scaffoldBackgroundColor: Colors.grey[50],
         // primaryColor: Color(0xFFEE5350),
         primarySwatch: Colors.red,
@@ -69,21 +70,27 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
               ),
             ),
             BottomNavigationBarItem(
-              icon:  IconButton(
+              icon: IconButton(
                 icon: Icon(Icons.headphones, color: Colors.black45),
                 onPressed: () {
-
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>HelpScreen(),),);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HelpScreen(),
+                    ),
+                  );
                 },
-              ), 
+              ),
               title: Text('Help'),
             ),
             BottomNavigationBarItem(
               icon: IconButton(
                 icon: Icon(Icons.person, color: Colors.black45),
                 onPressed: () {
-
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>MyAccountScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MyAccountScreen()));
                 },
               ),
               title: Text('Help'),
@@ -240,7 +247,12 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => RyderScreen()));
+                            },
                             child: Card(
                               elevation: 8,
                               shadowColor: Colors.grey[30],
@@ -272,9 +284,13 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                             width: 10,
                           ),
                           GestureDetector(
-                            onTap: () {
-                              print("Container clicked");
+                           onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>RailScreen()));
                             },
+                            
                             child: Card(
                               elevation: 8,
                               shadowColor: Colors.grey[30],
