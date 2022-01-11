@@ -16,7 +16,12 @@ class _RyderScreenState extends State<RyderScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: ()=>Navigator.pop(context), icon: Icon(Icons.arrow_back,color: Colors.black,)),
+        leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            )),
         backgroundColor: Colors.white,
         title: Text(
           'rYde',
@@ -69,28 +74,37 @@ class _RyderScreenState extends State<RyderScreen> {
                                     width: 10,
                                   ),
                                   Container(
-                                    child: Image.network(
-                                        'https://www.redbus.in/bushire/static/mwebv2/ryde/webhome/Component%2035.png'),
                                     height: 100,
                                     width: 100,
+                                    child: FittedBox(
+                                      fit: BoxFit.contain,
+                                      child: Image.network(
+                                          'https://www.redbus.in/bushire/static/mwebv2/ryde/webhome/Component%2035.png'),
+                                    ),
                                   ),
                                   SizedBox(
                                     width: 10,
                                   ),
                                   Container(
-                                    child: Image.network(
-                                        'https://www.redbus.in/bushire/static/mwebv2/ryde/webhome/Component%2036.png'),
                                     height: 100,
                                     width: 100,
+                                    child: FittedBox(
+                                      fit: BoxFit.contain,
+                                      child: Image.network(
+                                          'https://www.redbus.in/bushire/static/mwebv2/ryde/webhome/Component%2036.png'),
+                                    ),
                                   ),
                                   SizedBox(
                                     width: 10,
                                   ),
                                   Container(
-                                    child: Image.network(
-                                        'https://www.redbus.in/bushire/static/mwebv2/ryde/webhome/Component%2037.png'),
                                     height: 100,
                                     width: 100,
+                                    child: FittedBox(
+                                      fit: BoxFit.contain,
+                                      child: Image.network(
+                                          'https://www.redbus.in/bushire/static/mwebv2/ryde/webhome/Component%2037.png'),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -355,13 +369,16 @@ class _RyderScreenState extends State<RyderScreen> {
                                   ),
                                   Text(
                                     'Mini Buses',
-                                    style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,),
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                   Text(
                                     'ideal for more than',
                                     style: TextStyle(color: Colors.black87),
                                   ),
-                                    Text(
+                                  Text(
                                     '18 people',
                                     style: TextStyle(color: Colors.black87),
                                   ),
@@ -390,9 +407,13 @@ class _RyderScreenState extends State<RyderScreen> {
                     Text(
                       'Offers',
                       style: TextStyle(
-                          color: Colors.black,fontSize: 20, fontWeight: FontWeight.bold),
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                     Row(
                       children: [
                         Container(

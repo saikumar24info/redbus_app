@@ -14,3 +14,4 @@ Data(busName: 'Amaravati', amount: 650, time: '22:30 ---- 4:30'),
 Data(busName: 'Amaravati', amount: 650, time: '22:30 ---- 4:30'),
 Data(busName: 'Amaravati', amount: 650, time: '22:30 ---- 4:30'),
 Data(busName: 'Amaravati', amount: 650, time: '22:30 ---- 4:30'),];
+

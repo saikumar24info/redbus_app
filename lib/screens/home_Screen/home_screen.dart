@@ -11,6 +11,7 @@ import 'package:redbus_app/screens/my_bookings_screen.dart';
 import 'package:redbus_app/screens/home_Screen/search_screen1.dart';
 import 'package:redbus_app/screens/home_Screen/search_screen2.dart';
 import 'package:redbus_app/screens/rail_screen.dart';
+import 'package:redbus_app/screens/rpool_screen.dart';
 
 class BusHomeScreen extends StatefulWidget {
   const BusHomeScreen({Key? key}) : super(key: key);
@@ -25,8 +26,8 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
   final _fromController = TextEditingController();
   final _toController = TextEditingController();
   var date;
-  late final String from;
-  late final String to;
+    String from='';
+    String to='';
   @override
   Widget build(BuildContext context) {
     void _onItemTapped(int index) {}
@@ -130,7 +131,8 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                         child: CircleAvatar(
                             backgroundColor: Color(0xFFD32F2F),
                             backgroundImage: NetworkImage(
-                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJZiGVwdXRcOMSinjoVPb1GehiOZdevGqK5gF-2igFSA0IJXQvz40mGNpaL5sWOkIbh5c&usqp=CAU')),
+                               // 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJZiGVwdXRcOMSinjoVPb1GehiOZdevGqK5gF-2igFSA0IJXQvz40mGNpaL5sWOkIbh5c&usqp=CAU'
+                               'https://zenprospect-production.s3.amazonaws.com/uploads/pictures/613f38ca18c9ea00015cc2c4/picture')),
                       ),
                     ],
                   ),
@@ -145,17 +147,24 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                       key: _formKey,
                       child: Column(
                         children: [
+
+
+
                           TextFormField(
-                            autofocus: false,
-                            showCursor: false,
+                          
+                           validator:(value){ 
+                             if(value!.isEmpty){return '*This field is required';}
+                             else{return null;}
+                           },
                             controller: _fromController,
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SearchScreen2(),
-                                )),
-                            onChanged: (value) => this.from = value,
+                            // onTap: () => Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //       builder: (context) => SearchScreen1(),
+                            //     )),
+                            onChanged: (value) => from = value,
                             decoration: InputDecoration(
+                               suffixIcon: IconButton(onPressed: ()=>_fromController.clear(), icon:Icon(Icons.cancel)),
                               hintText: 'From',
                               prefixIcon: Icon(Icons.directions_bus),
                             ),
@@ -163,19 +172,32 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                           SizedBox(
                             height: 05,
                           ),
+
+
+
+
+
                           TextFormField(
-                            showCursor: false,
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SearchScreen2(),
-                                )),
+                              validator:(value){ 
+                             if(value!.isEmpty){return '*This field is required';}
+                             else{return null;}
+                           },
+                           // showCursor: false,
+                            // onTap: () => Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //       builder: (context) => SearchScreen2(),
+                            //     )),
                             controller: _toController,
                             onChanged: (value) => to = value,
                             decoration: InputDecoration(
+                              suffixIcon: IconButton(onPressed: ()=>_toController.clear(), icon:Icon(Icons.cancel)),
                                 hintText: 'To',
                                 prefixIcon: Icon(Icons.directions_bus)),
                           ),
+
+
+
                           TextFormField(
                             controller: date,
                             onChanged: (value) => date = value,
@@ -214,6 +236,8 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                             child: CustomButton(
                               child: Text('SEARCH'),
                               onPressed: () {
+                                print(from);
+                                  print(to);
                                 if (_formKey.currentState!.validate()) {
                                   Navigator.push(
                                       context,
@@ -284,13 +308,12 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                             width: 10,
                           ),
                           GestureDetector(
-                           onTap: () {
+                            onTap: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>RailScreen()));
+                                      builder: (context) => RailScreen()));
                             },
-                            
                             child: Card(
                               elevation: 8,
                               shadowColor: Colors.grey[30],
@@ -320,7 +343,11 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              print("Container clicked");
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => RpoolScreen(),
+                                  ),);
                             },
                             child: Card(
                               elevation: 8,
@@ -484,8 +511,8 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.indigo[500],
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.indigo[400],
                             ),
                             height: 130,
                             width: 300,
@@ -518,7 +545,7 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                           ),
                           Container(
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(5),
                               color: Colors.lightBlue[50],
                             ),
                             height: 130,
@@ -547,8 +574,8 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                           ),
                           Container(
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.indigo[500],
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.indigo[400],
                             ),
                             height: 130,
                             width: 300,
@@ -576,7 +603,7 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                           ),
                           Container(
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(5),
                             ),
                             height: 150,
                             width: 250,
@@ -591,7 +618,7 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                           ),
                           Container(
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(5),
                             ),
                             height: 150,
                             width: 250,
@@ -608,8 +635,11 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                 ],
               ),
             ),
+            
           ],
+          
         ),
+       
       ),
     );
   }

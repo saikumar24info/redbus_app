@@ -14,7 +14,8 @@ class _RailScreenState extends State<RailScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Rail screen',
-      theme: ThemeData(primarySwatch: Colors.red,backgroundColor: Colors.grey[100]),
+      theme: ThemeData(
+          primarySwatch: Colors.red, backgroundColor: Colors.grey[100]),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(

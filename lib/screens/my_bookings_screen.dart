@@ -62,7 +62,7 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 50,),
+            SizedBox(height: 500,),
             SizedBox(
               height: 50,
               width: 360,

@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MyAccountScreen extends StatefulWidget {
@@ -45,6 +46,13 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                       TextButton(
                         onPressed: () {},
                         child: Text('SIGN UP'),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      TextButton(
+                        onPressed: () => _signOut(),
+                        child: Text('SIGN OUT'),
                       ),
                     ],
                   ),
@@ -113,5 +121,13 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
         ),
       ),
     );
+  }
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Future<void> _signOut() async {
+    CircularProgressIndicator();
+
+    await _auth.signOut();
   }
 }

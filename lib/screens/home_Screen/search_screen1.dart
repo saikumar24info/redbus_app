@@ -23,46 +23,22 @@ class _SearchScreen1State extends State<SearchScreen1> {
             floating: true,
             pinned: true,
             snap: false,
-         
-            title: Container(
-           
-              height: 50,
-            
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(10)),
-              child: Center(
-                child: TextFormField(
-                  controller: _fromController,
-                  onChanged: (value) {
-                    _fromField = value;
-                  },
-                  onSaved: (value) {
-                    _fromField = value!;
-                  },
-                  decoration: InputDecoration(
-                      prefixIcon: IconButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => BusHomeScreen()));
-                        },
-                        icon: Icon(Icons.search),
-                      ),
-                      suffixIcon: IconButton(
-                        icon: Icon(Icons.clear),
-                        onPressed: () {
-                          _fromController.clear();
-                        },
-                      ),
-                      hintText: 'Search...',
-                      border: InputBorder.none),
+            title: TextFormField(
+              controller: _fromController,
+              cursorColor: Colors.white,
+              cursorHeight: 22,
+              decoration: InputDecoration(
+                hintText: 'Search...',
+                suffixIcon: IconButton(
+                  onPressed: () =>_fromController.clear(),
+                  icon: Icon(
+                    Icons.cancel_sharp,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
           ),
-
-          // Other Sliver Widgets
           SliverList(
             delegate: SliverChildListDelegate(
               [
