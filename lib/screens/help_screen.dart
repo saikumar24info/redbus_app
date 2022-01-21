@@ -3,7 +3,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:redbus_app/screens/home_Screen/home_screen.dart';
 
 class HelpScreen extends StatefulWidget {
   const HelpScreen({Key? key}) : super(key: key);
@@ -68,7 +67,7 @@ class _HelpScreenState extends State<HelpScreen> {
                     height: 50,
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: ()=>Navigator.pushNamed(context,'/mobile'),
                       child: Text(
                         'SEND OTP(SMS)',
                         style: TextStyle(
@@ -175,8 +174,8 @@ class _HelpScreenState extends State<HelpScreen> {
       User? user = result.user;
 
       if (result != null) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => BusHomeScreen()));
+        Navigator.pushNamed(
+            context,'/home');
       } 
   }
 }

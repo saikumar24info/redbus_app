@@ -2,8 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:redbus_app/common/custom_tile.dart';
-import 'package:redbus_app/common/data.dart';
+import 'package:redbus_app/screens/boarding_dropping_screen.dart';
 
 class BusesShowingScreen extends StatelessWidget {
   const BusesShowingScreen({Key? key, required this.from, required this.to})
@@ -24,12 +23,10 @@ class BusesShowingScreen extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Navigator.pushNamed(context, '/home'),
               icon: Icon(Icons.arrow_back)),
-          backgroundColor: Colors.red,
+          backgroundColor: Color(0xFFEE5350),
           title: Text('$from ' + "->" + ' $to'),
-
-        
         ),
         body: StreamBuilder<QuerySnapshot>(
           stream: _usersStream,
@@ -49,151 +46,103 @@ class BusesShowingScreen extends StatelessWidget {
               children: snapshot.data!.docs.map((DocumentSnapshot document) {
                 Map<String, dynamic> data =
                     document.data()! as Map<String, dynamic>;
-                return Container(
-                  decoration:
-                      BoxDecoration(border: Border.all(color: Colors.black12)),
-                  height: 150,
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                return InkWell(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black12)),
+                    height: 150,
+                    child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Column(
                         children: [
-                          Container(
-                            height: 25,
-                            width: 25,
-                            child: Image.network(
-                                'https://static.vecteezy.com/system/resources/thumbnails/001/500/616/small/building-icon-free-vector.jpg'),
-                          ),
-                          Text('1 REST STOP', style: TextStyle(fontSize: 12))
-                        ],
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                               data['Time'],
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            Text('Price: ${data['Amount']} ₹',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15)),
-                          ]),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            child: Image.network(
-                                'https://cdn-icons-png.flaticon.com/512/269/269947.png'),
-                            height: 25,
-                            width: 25,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: 25,
+                                width: 25,
+                                child: Image.network(
+                                    'https://static.vecteezy.com/system/resources/thumbnails/001/500/616/small/building-icon-free-vector.jpg'),
+                              ),
+                              Text('1 REST STOP',
+                                  style: TextStyle(fontSize: 12))
+                            ],
                           ),
                           SizedBox(
-                            width: 5,
+                            height: 5,
                           ),
-                          Text(data['Name'],
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15)),
-                          
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  data['Time'],
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                Text('Price: ${data['Amount']} ₹',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15)),
+                              ]),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                child: Image.network(
+                                    'https://cdn-icons-png.flaticon.com/512/269/269947.png'),
+                                height: 25,
+                                width: 25,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(data['Name'],
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15)),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Row(children: [
+                            Text('Ac/Sleeper (2+1)',
+                                style: TextStyle(fontSize: 12)),
+                          ]),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Row(children: [
+                            Text(
+                                'Return trip redDeal:Unlock min.₹ 100 on return ticket',
+                                style:
+                                    TextStyle(fontSize: 12, color: Colors.red)),
+                          ]),
                         ],
                       ),
-                      SizedBox(
-                        height:5,
-                      ),
-                      Row(children: [
-                        Text('Ac/Sleeper (2+1)',
-                            style: TextStyle(fontSize: 12)),
-                      ]),
-                      SizedBox(
-                      height:5,
-                      ),
-                      Row(children: [
-                        Text(
-                            'Return trip redDeal:Unlock min.₹ 100 on return ticket',
-                            style: TextStyle(
-                                
-                                fontSize: 12,
-                                color: Colors.red)),
-                      ]),
-                    ],
+                    ),
                   ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BoardingScreen(
+                            from: from,
+                            to: to,
+                            id: data['id'],
+                            company: data['Name'],
+                            time: data['Time'],
+                            amount: data['Amount']),
+                      ),
+                    );
+                  },
                 );
               }).toList(),
             );
           },
         ),
-        // body: CustomScrollView(
-        //   slivers: [
-        //     SliverAppBar(
-        //       leading: IconButton(
-        //         onPressed: () {
-        //           Navigator.pop(context);
-        //         },
-        //         icon: Icon(
-        //           Icons.arrow_back,
-        //           color: Colors.black,
-        //         ),
-        //       ),
-        //       title: Text(
-        //         '$from'+' $to',
-        //         style: TextStyle(color: Colors.black),
-        //       ),
-        //       actions: [
-        //         SizedBox(
-        //           height: 30,
-        //         ),
-        //         Text(
-        //           '6 Jan',
-        //           textAlign: TextAlign.center,
-        //           style: TextStyle(color: Colors.black),
-        //         )
-        //       ],
-        //       backgroundColor: Colors.white70,
-        //       pinned: true,
-        //       snap: false,
-        //       floating: false,
-        //       expandedHeight: 100.0,
-        //     ),
-        //     SliverList(
-        //       delegate: SliverChildBuilderDelegate(
-        //         (BuildContext context, int i) {
-        //           return Container(
-        //             decoration: BoxDecoration(
-        //               border: Border.all(color: Colors.white),
-        //               borderRadius: BorderRadius.circular(5),
-        //             ),
-        //             height: 100,
-        //             child: ListTile(
-        //               title: Row(children: [
-        //                 Container(
-        //                     width: 30,
-        //                     height: 30,
-        //                     color: Colors.yellow,
-        //                     child: Image.network(
-        //                         'https://cdn-icons-png.flaticon.com/128/269/269947.png')),
-        //                 SizedBox(
-        //                   width: 10,
-        //                 ),
-        //                 Text('${data[i].busName}'),
-        //               ]),
-        //               trailing: Text('₹ ${data[i].amount}'),
-        //               subtitle: Row(children: [
-        //                 Text('${data[i].time}'),
-        //                 Text('\nA/c Seater / Sleeper (2+1)'),
-        //               ]),
-        //             ),
-        //           );
-        //         },
-        //         childCount: data.length,
-        //       ),
-        //     ),
-        //   ],
-        // ),
       ),
     );
   }

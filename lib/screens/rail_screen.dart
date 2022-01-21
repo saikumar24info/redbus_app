@@ -22,7 +22,7 @@ class _RailScreenState extends State<RailScreen> {
           elevation: 0.5,
           backgroundColor: Colors.white,
           leading: IconButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Navigator.pushNamed(context,'/home'),
               icon: Icon(
                 Icons.arrow_back,
                 color: Colors.black87,
