@@ -62,8 +62,11 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 500,),
             SizedBox(
+              height: 500,
+            ),
+            Container(
+              color: Color(0xFFEE5350),
               height: 50,
               width: 360,
               child: ElevatedButton(

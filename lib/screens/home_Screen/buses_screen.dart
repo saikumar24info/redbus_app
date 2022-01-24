@@ -5,10 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:redbus_app/screens/boarding_dropping_screen.dart';
 
 class BusesShowingScreen extends StatelessWidget {
-  const BusesShowingScreen({Key? key, required this.from, required this.to})
+  BusesShowingScreen(
+      {Key? key,
+      required this.from,
+      required this.to,
+      required this.pickup,
+      required this.dropping})
       : super(key: key);
 
   final String from, to;
+  List<dynamic> pickup;
+  List<dynamic> dropping;
+
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
@@ -23,7 +31,9 @@ class BusesShowingScreen extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-              onPressed: () => Navigator.pushNamed(context, '/home'),
+              onPressed: () {
+                Navigator.pushNamed(context, '/home');
+              },
               icon: Icon(Icons.arrow_back)),
           backgroundColor: Color(0xFFEE5350),
           title: Text('$from ' + "->" + ' $to'),
@@ -125,16 +135,21 @@ class BusesShowingScreen extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
+                    pickup = data['Pickup'];
+                    print(pickup);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => BoardingScreen(
-                            from: from,
-                            to: to,
-                            id: data['id'],
-                            company: data['Name'],
-                            time: data['Time'],
-                            amount: data['Amount']),
+                          from: from,
+                          to: to,
+                          id: data['id'],
+                          company: data['Name'],
+                          time: data['Time'],
+                          amount: data['Amount'],
+                          pickup: data['Pickup'],
+                          dropping: data['Dropping'],
+                        ),
                       ),
                     );
                   },

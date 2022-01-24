@@ -1,87 +1,39 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class RadioButtonWidget extends StatefulWidget {
   final String from, id;
+  final List<dynamic> pickup;
 
-  const RadioButtonWidget({Key? key, required this.from, required this.id})
+  RadioButtonWidget(
+      {Key? key, required this.from, required this.id, required this.pickup})
       : super(key: key);
 
   @override
-  _RadioButtonWidgetState createState() => _RadioButtonWidgetState(from, id);
+  _RadioButtonWidgetState createState() =>
+      _RadioButtonWidgetState(from, id, pickup);
 }
 
 class _RadioButtonWidgetState extends State<RadioButtonWidget> {
-  _RadioButtonWidgetState(this.from, this.id);
+  _RadioButtonWidgetState(this.from, this.id, this.pickup);
   final String from, id;
-
+  final List<dynamic> pickup;
   var radioItem;
-  List<String> list = [
-    'Miyapur',
-    'KPHB',
-    'SR nagar',
-    'Lakdikapul',
-    'Hayatnagar'
-  ];
-  Widget build(BuildContext context) {
-    return Column(children: [
-      ListTile(
-        title: Text(list[0]),
-        leading: Radio(
-           value: 'MGBS',
-          groupValue: radioItem,
-          onChanged: (value) {
-            radioItem = value;
-          },
-         
-        ),
-      ),
-      ListTile(
-        title: Text(list[1]),
-        leading: Radio(
-              value: 'KPHB',
-          groupValue: radioItem,
-          onChanged: (value) {
-            radioItem = value;
-          },
-      
-        ),
-      ),
 
-      ListTile(
-        title: Text(list[2]),
-        leading: Radio(
-           value: 'SR nagar',
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: pickup.length,
+      itemBuilder: (context, index) => ListTile(
+        title: Text(pickup[index]),
+        leading: Radio<dynamic>(
+          value: pickup[index],
           groupValue: radioItem,
           onChanged: (value) {
-            radioItem = value;
+            setState(() {
+              radioItem = value;
+            });
           },
-         
         ),
       ),
-      ListTile(
-        title: Text(list[3]),
-        leading: Radio(
-           value: 'Lakdikapul',
-          groupValue: radioItem,
-          onChanged: (value) {
-            radioItem = value;
-          },
-         
-        ),
-      ),
-      ListTile(
-        title: Text(list[4]),
-        leading: Radio(
-           value: 'Hayatnagar',
-          groupValue: radioItem,
-          onChanged: (value) {
-            radioItem = value;
-          },
-         
-        ),
-      ),
-      
-    ]);
+    );
   }
 }

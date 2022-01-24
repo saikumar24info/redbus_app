@@ -45,10 +45,11 @@ class _SeatsScreenState extends State<SeatsScreen> {
               TextButton(
                   onPressed: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                DetailsScreen(from: from, to: to)));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailsScreen(from: from, to: to),
+                      ),
+                    );
                   },
                   child: Text('Next')),
             ],

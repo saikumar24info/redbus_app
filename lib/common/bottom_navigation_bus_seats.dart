@@ -20,11 +20,11 @@ class _CustomBottomNaviagationBarState
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
+        type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
             icon: CircleAvatar(
-            
+              backgroundColor: Colors.white,
               backgroundImage: NetworkImage(
                   'https://cdn3.vectorstock.com/i/1000x1000/05/22/bus-black-icon-large-vehicle-for-passengers-vector-26240522.jpg'),
             ),
@@ -32,7 +32,7 @@ class _CustomBottomNaviagationBarState
                 style: TextStyle(color: Colors.black, fontSize: 12)),
           ),
           BottomNavigationBarItem(
-            backgroundColor: Colors.black,
+            backgroundColor: Colors.white,
             icon: CircleAvatar(
               backgroundImage: NetworkImage(
                   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS4wMFRKMsxOy8LoLyjeWIk7pdJYX9cUWP-VskhDIE3z5qfgAz8lG3ycLIVWMOYtvC16A&usqp=CAU'),
@@ -41,7 +41,7 @@ class _CustomBottomNaviagationBarState
                 style: TextStyle(color: Colors.black, fontSize: 12)),
           ),
           BottomNavigationBarItem(
-            backgroundColor: Colors.black,
+            backgroundColor: Colors.white,
             icon: CircleAvatar(
               backgroundImage: NetworkImage(
                   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgxai9ma4CYF2FRREnCKLc5YUcMlWZwhcukpSQKpI35tk6Rx3nBCYdijfoHhPxJ31re68&usqp=CAU'),
@@ -50,7 +50,7 @@ class _CustomBottomNaviagationBarState
                 style: TextStyle(color: Colors.black, fontSize: 12)),
           ),
           BottomNavigationBarItem(
-            backgroundColor: Colors.black,
+            backgroundColor: Colors.white,
             icon: CircleAvatar(
               backgroundImage: NetworkImage(
                   'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/600px_White_star_on_Black_background.svg/1280px-600px_White_star_on_Black_background.svg.png'),
@@ -59,7 +59,7 @@ class _CustomBottomNaviagationBarState
                 style: TextStyle(color: Colors.black, fontSize: 12)),
           ),
           BottomNavigationBarItem(
-            backgroundColor: Colors.black,
+            backgroundColor: Colors.white,
             icon: CircleAvatar(
               backgroundImage: NetworkImage(
                   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAb0OudKnttnKiSvo8Oou9JSpFzKWOTGygKQ&usqp=CAU'),

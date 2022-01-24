@@ -2,9 +2,10 @@
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:redbus_app/common/custrom_button.dart';
-
 import 'package:redbus_app/screens/home_Screen/buses_screen.dart';
+import '../../main.dart';
 
 class BusHomeScreen extends StatefulWidget {
   const BusHomeScreen({Key? key}) : super(key: key);
@@ -22,7 +23,6 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
   String from = '';
   String to = '';
 
-  @override
   Widget build(BuildContext context) {
     void _onItemTapped(int index) {}
     return MaterialApp(
@@ -30,6 +30,7 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
       title: 'BusScreen',
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.grey[50],
+
         // primaryColor: Color(0xFFEE5350),
         primarySwatch: Colors.red,
       ),
@@ -112,7 +113,7 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                         height: 50,
                         width: 50,
                         child: CircleAvatar(
-                            backgroundColor: Color(0xFFD32F2F),
+                            backgroundColor: Color(0xFFEE5350),
                             backgroundImage: NetworkImage(
                                 // 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJZiGVwdXRcOMSinjoVPb1GehiOZdevGqK5gF-2igFSA0IJXQvz40mGNpaL5sWOkIbh5c&usqp=CAU'
                                 'https://zenprospect-production.s3.amazonaws.com/uploads/pictures/613f38ca18c9ea00015cc2c4/picture')),
@@ -219,11 +220,16 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              BusesShowingScreen(
-                                                  from: from, to: to)));
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => BusesShowingScreen(
+                                        from: from,
+                                        to: to,
+                                        dropping: [],
+                                        pickup: [],
+                                      ),
+                                    ),
+                                  );
                                 }
                               },
                             ),

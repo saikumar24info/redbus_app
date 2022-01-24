@@ -1,32 +1,53 @@
 import 'package:flutter/material.dart';
 
-class RadioButtonWidget2 extends StatefulWidget {
-  final String var2;
+class RadioButton2 extends StatefulWidget {
+  String from;
 
-  const RadioButtonWidget2({Key? key, required this.var2}) : super(key: key);
+  String id;
+
+  final List<dynamic> dropping;
+
+  RadioButton2({
+    Key? key,
+    required this.from,
+    required this.id,
+    required this.dropping,
+  }) : super(key: key);
 
   @override
-  _RadioButtonWidget2State createState() => _RadioButtonWidget2State(this.var2);
+  _RadioButton2State createState() => _RadioButton2State(from, id, dropping);
 }
 
-class _RadioButtonWidget2State extends State<RadioButtonWidget2> {
-  final String var2;
-  var radioItem2;
+class _RadioButton2State extends State<RadioButton2> {
+  final String from, id;
+  var radioItem1;
 
-  _RadioButtonWidget2State(this.var2);
+  final List<dynamic> dropping;
 
+  // var radioItem;
+  // List<String> list = [
+  //   'Miyapur',
+  //   'KPHB',
+  //   'SR nagar',
+  //   'Lakdikapul',
+  //   'Hayatnagar'
+  // ];
+
+  _RadioButton2State(this.from, this.id, this.dropping);
   Widget build(BuildContext context) {
-    return Center(
-      child: RadioListTile(
-        groupValue: radioItem2,
-        title: Text('Kurnool Bus Station'),
-        value: 'Item 2',
-        onChanged: (val) {
-          setState(() {
-            radioItem2 = val;
-          });
-        },
-      ),
+    return ListView.builder(
+      itemCount: dropping.length,
+      itemBuilder: (context, index) => ListTile(
+          title: Text(dropping[index]),
+          leading: Radio<dynamic>(
+            value: dropping[index],
+            groupValue: radioItem1,
+            onChanged: (value) {
+              setState(() {
+                radioItem1 = value;
+              });
+            },
+          )),
     );
   }
 }

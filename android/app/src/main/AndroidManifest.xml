@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+
     package="com.example.redbus_app">
+        <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="redbus_app"
         android:name="${applicationName}"
@@ -18,8 +20,7 @@
                  to determine the Window background behind the Flutter UI. -->
             <meta-data
               android:name="io.flutter.embedding.android.NormalTheme"
-              android:resource="@style/NormalTheme"
-              />
+              android:resource="@style/NormalTheme" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -28,12 +29,18 @@
                 <action android:name="com.example.redbus_app" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
-        </activity>
+            <intent-filter>
+                <action android:name="FLUTTER_NOTIFICATION_CLICK" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
-        <meta-data
+           <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+            <meta-data
+               android:name="com.google.firebase.messaging.default_notification_channel_id"
+  android:value="high_importance_channel" />
     </application>
 </manifest>

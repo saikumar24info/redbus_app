@@ -6,11 +6,21 @@ import 'package:redbus_app/common/radio_button2.dart';
 import 'package:redbus_app/screens/seats_screen.dart';
 
 class BoardingScreen extends StatelessWidget {
-  const BoardingScreen(
-      {Key? key, required this.from, required this.to, required this.id, required this.company, required this.time, this.amount, })
-      : super(key: key);
-  final String from, to, id,company,time;
-  final  amount;
+  BoardingScreen({
+    Key? key,
+    required this.from,
+    required this.to,
+    required this.id,
+    required this.company,
+    required this.time,
+    this.amount,
+    required this.pickup,
+    required this.dropping,
+  }) : super(key: key);
+  final String from, to, id, company, time;
+  final amount;
+  final List<dynamic> pickup;
+  final List<dynamic> dropping;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +37,9 @@ class BoardingScreen extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             leading: IconButton(
-                onPressed: () => Navigator.pop(context),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 icon: Icon(Icons.arrow_back)),
             backgroundColor: Colors.red,
             title: Text('$from --> $to'),
@@ -41,13 +53,16 @@ class BoardingScreen extends StatelessWidget {
                 child: ListTile(
                   title: RadioButtonWidget(
                     from: from,
-                    id:id
+                    id: id,
+                    pickup: pickup,
                   ),
                 ),
               ),
               Tab(
-                child: RadioButtonWidget2(
-                  var2: to,
+                child: RadioButton2(
+                  from: to,
+                  id: id,
+                  dropping: dropping,
                 ),
               ),
             ],
@@ -58,11 +73,18 @@ class BoardingScreen extends StatelessWidget {
             child: ElevatedButton(
                 child: Text('PROCEED'),
                 onPressed: () {
-               
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => SeatsScreen(from:from,to:to,id:id,company:company,time:time,amount:amount)));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SeatsScreen(
+                          from: from,
+                          to: to,
+                          id: id,
+                          company: company,
+                          time: time,
+                          amount: amount),
+                    ),
+                  );
                 }),
           ),
         ),
