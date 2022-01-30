@@ -5,23 +5,70 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:redbus_app/common/custrom_button.dart';
 import 'package:redbus_app/screens/home_Screen/buses_screen.dart';
+import 'package:redbus_app/screens/home_Screen/search_screen1.dart';
+import 'package:redbus_app/screens/home_Screen/search_screen2.dart';
 import '../../main.dart';
+import 'package:intl/intl.dart';
 
 class BusHomeScreen extends StatefulWidget {
-  const BusHomeScreen({Key? key}) : super(key: key);
+  final String from;
+  final String to;
+  const BusHomeScreen({Key? key, required this.from, required this.to})
+      : super(key: key);
 
   @override
-  _BusHomeScreenState createState() => _BusHomeScreenState();
+  _BusHomeScreenState createState() => _BusHomeScreenState(from, to);
 }
 
 class _BusHomeScreenState extends State<BusHomeScreen> {
-  List<Widget> _screens = [];
+  _BusHomeScreenState(this.from, this.to);
+
   final _formKey = GlobalKey<FormState>();
-  final _fromController = TextEditingController();
+  var _fromController = TextEditingController();
   final _toController = TextEditingController();
   var date;
-  String from = '';
-  String to = '';
+  String from;
+  String to;
+  String finalDate = '';
+  List<String> month = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
+  @override
+  void initState() {
+    var now = DateTime.now();
+    finalDate = DateFormat.yMMMMd().format(now);
+    setState(() {
+      _fromController.text = from;
+      _toController.text = to;
+    });
+  }
+
+  DateTime selectedDate = DateTime.now();
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? selected = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now().subtract(Duration(days: 0)),
+      lastDate: DateTime.now().add(Duration(days: 20)),
+    );
+    if (selected != null && selected != selectedDate)
+      setState(() {
+        selectedDate = selected;
+        finalDate = month[selectedDate.month - 1] +
+            " ${selectedDate.day}, ${selectedDate.year}";
+      });
+  }
 
   Widget build(BuildContext context) {
     void _onItemTapped(int index) {}
@@ -30,7 +77,6 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
       title: 'BusScreen',
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.grey[50],
-
         // primaryColor: Color(0xFFEE5350),
         primarySwatch: Colors.red,
       ),
@@ -82,17 +128,14 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
             ),
           ],
         ),
-        body: Stack(
-          children: [
-            Container(
-              color: Color(0xFFEE5350),
-              height: 350,
-            ),
-            SizedBox(
-              height: 350,
-            ),
-            SingleChildScrollView(
-              child: Column(
+        body: SingleChildScrollView(
+          child: Stack(
+            children: [
+              Container(
+                color: Color(0xFFEE5350),
+                height: 350,
+              ),
+              Column(
                 children: [
                   SizedBox(
                     height: 50,
@@ -120,124 +163,136 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                       ),
                     ],
                   ),
-                  Container(
-                    margin: const EdgeInsets.all(14.0),
-                    padding: EdgeInsets.all(10.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Colors.white,
-                    ),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return '*This field is required';
-                              } else {
-                                return null;
-                              }
-                            },
-                            controller: _fromController,
-                            // onTap: () => Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //       builder: (context) => SearchScreen1(),
-                            //     )),
-                            onChanged: (value) => from = value,
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                  onPressed: () => _fromController.clear(),
-                                  icon: Icon(Icons.cancel)),
-                              hintText: 'From',
-                              prefixIcon: Icon(Icons.directions_bus),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 05,
-                          ),
-                          TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return '*This field is required';
-                              } else {
-                                return null;
-                              }
-                            },
-                            // showCursor: false,
-                            // onTap: () => Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //       builder: (context) => SearchScreen2(),
-                            //     )),
-                            controller: _toController,
-                            onChanged: (value) => to = value,
-                            decoration: InputDecoration(
-                                suffixIcon: IconButton(
-                                    onPressed: () => _toController.clear(),
-                                    icon: Icon(Icons.cancel)),
-                                hintText: 'To',
-                                prefixIcon: Icon(Icons.directions_bus)),
-                          ),
-                          TextFormField(
-                            controller: date,
-                            onChanged: (value) => date = value,
-                            decoration: InputDecoration(
-                              hintText: 'Wed, 5 Jan',
-                              prefixIcon: Icon(Icons.today),
-                              suffixIcon: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  TextButton(
-                                    onPressed: () {},
-                                    child: Text(
-                                      'TODAY\t',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 10,
-                                          color: Colors.blueAccent[200]),
-                                    ),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {},
-                                    child: Text(
-                                      'TOMORROW\t',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 10,
-                                          color: Colors.blueAccent[200]),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 330,
-                            child: CustomButton(
-                              child: Text('SEARCH'),
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => BusesShowingScreen(
-                                        from: from,
-                                        to: to,
-                                        dropping: [],
-                                        pickup: [],
-                                      ),
-                                    ),
-                                  );
+                  Stack(children: [
+                    Container(
+                      margin: const EdgeInsets.all(14.0),
+                      padding: EdgeInsets.all(10.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.white,
+                      ),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            TextFormField(
+                              readOnly: true,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return '*This field is required';
+                                } else {
+                                  return null;
                                 }
                               },
+                              controller: _fromController,
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SearchScreen1(to: to),
+                                  )),
+                              decoration: InputDecoration(
+                                hintText: 'from',
+                                prefixIcon: Opacity(
+                                    opacity: 0,
+                                    child: Icon(Icons.directions_bus)),
+                              ),
                             ),
-                          ),
-                        ],
+                            Stack(children: [
+                              TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return '*This field is required';
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                readOnly: true,
+                                onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          SearchScreen2(from: from),
+                                    )),
+                                controller: _toController,
+                                onChanged: (value) => to = value,
+                                decoration: InputDecoration(
+                                  hintText: 'to',
+                                  prefixIcon: Opacity(
+                                      opacity: 0,
+                                      child: Icon(Icons.directions_bus)),
+                                ),
+                              ),
+                              Positioned(
+                                top: 10,
+                                right: 275,
+                                child: Container(
+                                  child: Icon(Icons.directions_bus),
+                                ),
+                              ),
+                            ]),
+                            Stack(children: [
+                              GestureDetector(
+                                onTap: () {
+                                  _selectDate(context);
+                                },
+                                child: AbsorbPointer(
+                                  child: TextFormField(
+                                    readOnly: true,
+                                    decoration: InputDecoration(
+                                      prefixIcon: Icon(Icons.today),
+                                      hintText: '$finalDate',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                top: 1,
+                                right: 264,
+                                child: Container(
+                                  child: IconButton(
+                                    onPressed: () {
+                                      _selectDate(context);
+                                    },
+                                    icon: Icon(Icons.today),
+                                  ),
+                                ),
+                              ),
+                            ]),
+                            SizedBox(
+                              width: 330,
+                              child: CustomButton(
+                                child: Text('SEARCH'),
+                                onPressed: () {
+                                  print(finalDate);
+                                  if (_formKey.currentState!.validate()) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            BusesShowingScreen(
+                                                from: from,
+                                                to: to,
+                                                dropping: [],
+                                                pickup: [],
+                                                finalDate: finalDate),
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
+                    Positioned(
+                      top: 35,
+                      right: 298,
+                      child: Container(
+                        child: Icon(Icons.directions_bus),
+                      ),
+                    ),
+                  ]),
                   SizedBox(
                     height: 20,
                   ),
@@ -610,8 +665,8 @@ class _BusHomeScreenState extends State<BusHomeScreen> {
                   ),
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

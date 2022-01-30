@@ -17,7 +17,7 @@ class _RyderScreenState extends State<RyderScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () => Navigator.pushNamed(context,'/home'),
+            onPressed: () => Navigator.pushNamed(context, '/home'),
             icon: Icon(
               Icons.arrow_back,
               color: Colors.black,

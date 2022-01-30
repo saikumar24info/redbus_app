@@ -35,7 +35,9 @@ class _HelpScreenState extends State<HelpScreen> {
                   Text(
                     'Verify your details',
                     style: TextStyle(
-                        color: Colors.red, fontSize:20,fontWeight: FontWeight.bold),
+                        color: Colors.red,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     height: 12,
@@ -67,7 +69,7 @@ class _HelpScreenState extends State<HelpScreen> {
                     height: 50,
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: ()=>Navigator.pushNamed(context,'/mobile'),
+                      onPressed: () => Navigator.pushNamed(context, '/mobile'),
                       child: Text(
                         'SEND OTP(SMS)',
                         style: TextStyle(
@@ -100,7 +102,7 @@ class _HelpScreenState extends State<HelpScreen> {
                             onTap: () {},
                           ),
                           TextButton(
-                              onPressed: ()=>signup(context),
+                              onPressed: () => signup(context),
                               child: Text('   Google\nverification')),
                         ]),
                         Column(children: [
@@ -156,7 +158,7 @@ class _HelpScreenState extends State<HelpScreen> {
     );
   }
 
-    final FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   Future<void> signup(BuildContext context) async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -174,9 +176,8 @@ class _HelpScreenState extends State<HelpScreen> {
       User? user = result.user;
 
       if (result != null) {
-        Navigator.pushNamed(
-            context,'/home');
-      } 
+        Navigator.pushNamed(context, '/home');
+      }
+    }
   }
-}
 }

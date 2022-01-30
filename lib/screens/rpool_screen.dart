@@ -27,10 +27,10 @@ class _RpoolScreenState extends State<RpoolScreen> {
               child: Container(
                 height: 50,
                 width: 50,
-                child: CircleAvatar(  
-               backgroundImage:NetworkImage(
-                    'https://zenprospect-production.s3.amazonaws.com/uploads/pictures/613f38ca18c9ea00015cc2c4/picture'),
-              ),
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(
+                      'https://zenprospect-production.s3.amazonaws.com/uploads/pictures/613f38ca18c9ea00015cc2c4/picture'),
+                ),
               ),
             ),
           ],

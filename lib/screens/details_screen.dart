@@ -1,32 +1,68 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:redbus_app/main.dart';
 import 'package:redbus_app/screens/loading_screen.dart';
-import 'package:redbus_app/screens/seats_screen.dart';
 
 class DetailsScreen extends StatefulWidget {
-  final String from, to;
-  const DetailsScreen({
-    Key? key,
-    required this.from,
-    required this.to,
-  }) : super(key: key);
+  final String from, to, company, time, finalDate;
+  final int amount;
+  final List<String> savedSeats;
+  DetailsScreen(
+      {Key? key,
+      required this.from,
+      required this.to,
+      required this.company,
+      required this.amount,
+      required this.time,
+      required this.finalDate,
+      required this.savedSeats})
+      : super(key: key);
 
   @override
-  _DetailsScreenState createState() => _DetailsScreenState(from, to);
+  _DetailsScreenState createState() =>
+      _DetailsScreenState(from, to, company, amount, time, finalDate);
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
-  final String from, to;
-  _DetailsScreenState(this.from, this.to);
+  final String from, to, company, time, finalDate;
+  final int amount;
+  String age = '';
+  final List<String> savedSeats = [];
+  _DetailsScreenState(
+    this.from,
+    this.to,
+    this.company,
+    this.amount,
+    this.time,
+    this.finalDate,
+  );
+  showAlertDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: new Row(
+        children: [
+          CircularProgressIndicator(),
+          Container(margin: EdgeInsets.only(left: 5), child: Text("Loading")),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 
   final _formKey = GlobalKey<FormState>();
   String phoneno = '';
   var _insurance;
   var _selectGender;
   var _radioValue;
-  
+  String emailid = '';
+  String address = '';
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +76,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0xFFEE5350),
-          title: Text(from+" --> "+to),
+          title: Text(from + " --> " + to),
           leading: IconButton(
             onPressed: () => Navigator.pop(context),
             icon: Icon(Icons.arrow_back),
@@ -62,7 +98,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 child: Padding(
                   padding: EdgeInsets.all(8),
                   child: Container(
-                    height: 180,
+                    height: 245,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
                     width: double.infinity,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,17 +111,27 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           style: TextStyle(color: Colors.black45),
                         ),
                         TextFormField(
+                          keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "*Required emailid";
+                            }
+                            if (!value.contains('@')) {
+                              return "*Enter correct emailid";
+                            }
+                          },
                         ),
                         ListTile(
                           leading: Text('+91'),
                           title: TextFormField(
+                            keyboardType: TextInputType.phone,
                             onChanged: (value) {
                               phoneno = value;
                             },
                             validator: (value) {
                               if (value!.length != 10) {
-                                return 'enter correct phone number';
+                                return '*Enter correct phone number';
                               } else {
                                 return null;
                               }
@@ -94,18 +143,18 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           leading: Text('Address:'),
                           title: TextFormField(
                             onChanged: (value) {
-                              phoneno = value;
+                              address = value;
                             },
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return 'enter address';
+                                return '*Enter address';
                               } else {
                                 return null;
                               }
                             },
                             decoration: InputDecoration(),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -122,7 +171,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 child: Padding(
                   padding: EdgeInsets.all(8),
                   child: Container(
-                    height: 250,
+                    height: 350,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -134,10 +183,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text('SeatNo 1'),
-                            ElevatedButton(
-                              onPressed: () => Navigator.pop(context),
-                              child: Text('Add Passenger'),
-                            ),
                           ],
                         ),
                         TextFormField(
@@ -158,6 +203,24 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             return null;
                           },
                           decoration: InputDecoration(hintText: 'Name'),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          maxLength: 2,
+                          keyboardType: TextInputType.phone,
+                          onChanged: (value) {
+                            age = value;
+                          },
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "*Required this field";
+                            } else {
+                              return null;
+                            }
+                          },
+                          decoration: InputDecoration(hintText: 'Age'),
                         ),
                         SizedBox(
                           height: 10,
@@ -186,6 +249,15 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             },
                           ),
                           title: const Text('FeMale'),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Center(
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            child: Text('Add Passenger'),
+                          ),
                         ),
                       ],
                     ),
@@ -355,7 +427,31 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 height: 50,
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      try {
+                        flutterLocalNotificationsPlugin.show(
+                            0,
+                            "RedBus",
+                            "Booking Successful!",
+                            NotificationDetails(
+                                android: AndroidNotificationDetails(
+                                    channel.id, channel.name,
+                                    importance: Importance.high,
+                                    color: Colors.blue,
+                                    playSound: true,
+                                    icon: '@mipmap/ic_launcher')));
+                        Future.delayed(Duration(seconds: 5));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoadingScreen(),
+                            ));
+                      } catch (e) {
+                        print(e.toString());
+                      }
+                    }
+                  },
                   child: Text('PROCEED'),
                 ),
               ),

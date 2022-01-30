@@ -33,9 +33,8 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
-  'high_importance_channel', // id
-  'High Importance Notifications', // title
-  // description
+  'high_importance_channel',
+  'High Importance Notifications',
   importance: Importance.high,
 );
 
@@ -128,7 +127,7 @@ class _MyAppState extends State<MyApp> {
       ),
       initialRoute: '/home',
       routes: {
-        '/home': (context) => BusHomeScreen(),
+        '/home': (context) => BusHomeScreen(from: '', to: ''),
         '/ryde': (context) => RyderScreen(),
         '/redrail': (context) => RailScreen(),
         '/rPool': (context) => RpoolScreen(),
@@ -137,7 +136,7 @@ class _MyAppState extends State<MyApp> {
         '/account': (context) => MyAccountScreen(),
         '/mobile': (context) => MobileLoginScreen(),
       },
-      home: BusHomeScreen(),
+      home: BusHomeScreen(from: '', to: ''),
     );
   }
 }

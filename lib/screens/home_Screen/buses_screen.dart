@@ -10,12 +10,14 @@ class BusesShowingScreen extends StatelessWidget {
       required this.from,
       required this.to,
       required this.pickup,
-      required this.dropping})
+      required this.dropping,
+      required this.finalDate})
       : super(key: key);
 
   final String from, to;
   List<dynamic> pickup;
   List<dynamic> dropping;
+  final String finalDate;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class BusesShowingScreen extends StatelessWidget {
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
-              return Text('No buses are Available in this route');
+              return Text('Something went wrong');
             }
 
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -135,21 +137,19 @@ class BusesShowingScreen extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
-                    pickup = data['Pickup'];
-                    print(pickup);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => BoardingScreen(
-                          from: from,
-                          to: to,
-                          id: data['id'],
-                          company: data['Name'],
-                          time: data['Time'],
-                          amount: data['Amount'],
-                          pickup: data['Pickup'],
-                          dropping: data['Dropping'],
-                        ),
+                            from: from,
+                            to: to,
+                            id: data['id'],
+                            company: data['Name'],
+                            time: data['Time'],
+                            amount: data['Amount'],
+                            pickup: data['Pickup'],
+                            dropping: data['Dropping'],
+                            finalDate: finalDate),
                       ),
                     );
                   },
